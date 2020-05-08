@@ -1,0 +1,12 @@
+textarea#terminal-command {
+	margin-bottom: 0px;
+	border-right: 0px;
+	-webkit-border-radius: 4px 0 0 4px;
+	-moz-border-radius: 4px 0 0 4px;
+	border-radius: 4px 0 0 4px;
+	resize: vertical;
+}
+
+a#terminal-send {
+	vertical-align: middle;
+}
