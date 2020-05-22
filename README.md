@@ -1,6 +1,6 @@
 # Multi Line Terminal
 
-This plugin simply replaces the single line gcode input into a multi-line text area. Once installed you will have to use the Send button instead of the Enter key to send the commands to your printer.
+This plugin simply replaces the single line gcode input into a multi-line text area. Once installed you can use the Send button or shift+enter to send the gcode commands to your printer.
 
 ![screenshot](screenshot.png)
 
