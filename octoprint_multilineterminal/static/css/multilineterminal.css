@@ -1,37 +1,12 @@
 textarea#terminal-command {
 	margin-bottom: 0px;
 	border-right: 0px;
-	-webkit-border-radius: 0px 0 0 0px;
-	-moz-border-radius: 0px 0 0 0px;
-	border-radius: 0px 0 0 0px;
+	-webkit-border-radius: 4px 0 0 4px;
+	-moz-border-radius: 4px 0 0 4px;
+	border-radius: 4px 0 0 4px;
 	resize: vertical;
 }
 
 a#terminal-send {
 	vertical-align: middle;
-}
-
-span#multilinehistorybuttons {
-	-webkit-border-radius: 4px 0 0 4px;
-	-moz-border-radius: 4px 0 0 4px;
-	border-radius: 4px 0 0 4px;
-	padding: 0px 0px;
-	vertical-align: middle;
-}
-
-span#multilinehistorybuttons > a {
-	width: 100%;
-	display: block;
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-	vertical-align: middle;
-}
-
-span#multilinehistorybuttons > a:last-child {
-	padding-top: 10px;
-}
-
-span#multilinehistorybuttons > a:first-child {
-	padding-bottom: 10px;
 }
