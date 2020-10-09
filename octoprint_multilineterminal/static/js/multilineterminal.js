@@ -87,7 +87,7 @@ $(function() {
 		}
 
 		self.onStartup = function(){
-			$('#terminal-command').replaceWith('<textarea rows="4" class="input input-block-level" id="terminal-command" data-bind="textInput: command, event: { keyup: function(d,e) { return handleKeyUpMultiLine(e); }, keydown: function(d,e) { return handleKeyDownMultiLine(e); } }, enable: isOperational() && loginState.isUser()"/>').parent('div').addClass('input prepend');
+			$('#terminal-command').replaceWith('<textarea rows="4" class="input input-block-level" id="terminal-command" data-bind="textInput: command, event: { keyup: function(d,e) { console.log(d, e); }, keydown: function(d,e) { return handleKeyDownMultiLine(e); } }, enable: isOperational() && loginState.isUser()"/>').parent('div').addClass('input prepend');
 			$('#terminal-send').attr('data-bind','click: sendCommandMultiLine, enable: isOperational() && loginState.isUser()');
 		}
 	}
