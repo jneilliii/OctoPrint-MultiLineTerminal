@@ -9,6 +9,20 @@ $(function() {
 		var self = this;
 
 		self.terminalViewModel = parameters[0];
+		self.terminalViewModel.multiLineRows = ko.observable(1);
+		self.terminalViewModel.multiLineInputRowCount = ko.pureComputed(function(){
+			if(self.terminalViewModel.command()){
+				return self.terminalViewModel.command().split("\n").length;
+			} else {
+				return 1;
+			}
+		});
+
+		self.terminalViewModel.multiLineInputRowCount.subscribe(function(newValue){
+			if(self.terminalViewModel.multiLineRows() !== newValue && newValue !== 1){
+				self.terminalViewModel.multiLineRows(newValue);
+			}
+		});
 
 		self.terminalViewModel.sendCommandMultiLine = function() {
 			var command = self.terminalViewModel.command();
@@ -70,24 +84,44 @@ $(function() {
 		}
 
 		self.terminalViewModel.handleKeyDownMultiLine = function(e){
-			if (event.shiftKey && event.keyCode === 38) {
+			if ((event.shiftKey || self.terminalViewModel.multiLineRows() == 1) && event.keyCode === 38) {
 				self.terminalViewModel.getHistoryMultiLine(1);
 				return false;
 			}
-			if (event.shiftKey && event.keyCode === 40) {
+			if ((event.shiftKey || self.terminalViewModel.multiLineRows() == 1) && event.keyCode === 40) {
 				self.terminalViewModel.getHistoryMultiLine(-1);
 				return false;
 			}
-			if (event.shiftKey && event.keyCode === 13) {
+			if (event.shiftKey && self.terminalViewModel.multiLineRows() == 1 && event.keyCode === 13) {
+				self.terminalViewModel.multiLineRows(self.terminalViewModel.multiLineRows()+1);
+				return true;
+			}
+			if (event.keyCode === 13 && self.terminalViewModel.multiLineRows() > 1) {
+				if(self.terminalViewModel.multiLineRows() <= self.terminalViewModel.multiLineInputRowCount()){
+					self.terminalViewModel.multiLineRows(self.terminalViewModel.multiLineRows()+1);
+				}
+			}
+			if ((event.shiftKey || self.terminalViewModel.multiLineRows() == 1) && event.keyCode === 13) {
 				$('#terminal-send').trigger('click');
 				return false;
+			}
+			if (event.keyCode === 8 && (self.terminalViewModel.multiLineRows() !== self.terminalViewModel.multiLineInputRowCount())){
+				self.terminalViewModel.multiLineRows(self.terminalViewModel.multiLineInputRowCount());
 			}
 			// do not prevent default action
 			return true;
 		}
 
+		self.terminalViewModel.handleDoubleClick = function(d, e){
+			if (e.target.rows === 1) {
+				self.terminalViewModel.multiLineRows(4);
+			} else {
+				self.terminalViewModel.multiLineRows(1);
+			}
+		}
+
 		self.onStartup = function(){
-			$('#terminal-command').replaceWith('<textarea rows="4" class="input input-block-level" id="terminal-command" data-bind="textInput: command, event: { keydown: function(d,e) { return handleKeyDownMultiLine(e); } }, enable: isOperational() && loginState.isUser()"/>').parent('div').addClass('input prepend');
+			$('#terminal-command').replaceWith('<textarea rows="1" class="input input-block-level" id="terminal-command" data-bind="textInput: command, event: { dblclick: handleDoubleClick, keydown: function(d,e) { return handleKeyDownMultiLine(e); } }, enable: isOperational() && loginState.isUser(), attr: {rows: multiLineRows()}"/>').parent('div').addClass('input prepend');
 			$('#terminal-send').attr('data-bind','click: sendCommandMultiLine, enable: isOperational() && loginState.isUser()');
 		}
 	}
