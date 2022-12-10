@@ -66,6 +66,7 @@ $(function() {
 					self.terminalViewModel.cmdHistory.slice(-300); // just to set a sane limit to how many manually entered commands will be saved...
 					self.terminalViewModel.cmdHistoryIdx = self.terminalViewModel.cmdHistory.length;
 					self.terminalViewModel.command("");
+					self.termianlViewModel.multiLineRows(1);  // setting commnad to "", somehow doens't reset this.
 				});
 		};
 
