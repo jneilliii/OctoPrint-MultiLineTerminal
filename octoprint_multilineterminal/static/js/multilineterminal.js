@@ -92,18 +92,13 @@ $(function() {
 				self.terminalViewModel.getHistoryMultiLine(-1);
 				return false;
 			}
-			if (event.shiftKey && self.terminalViewModel.multiLineRows() == 1 && event.keyCode === 13) {
-				self.terminalViewModel.multiLineRows(self.terminalViewModel.multiLineRows()+1);
-				return true;
-			}
-			if (event.keyCode === 13 && self.terminalViewModel.multiLineRows() > 1) {
-				if(self.terminalViewModel.multiLineRows() <= self.terminalViewModel.multiLineInputRowCount()){
-					self.terminalViewModel.multiLineRows(self.terminalViewModel.multiLineRows()+1);
+			if (event.keyCode === 13){ // handle Enter
+				if (!event.shiftKey){  // sending without Shift
+					$('#terminal-send').trigger('click');
+					return false;
 				}
-			}
-			if ((event.shiftKey || self.terminalViewModel.multiLineRows() == 1) && event.keyCode === 13) {
-				$('#terminal-send').trigger('click');
-				return false;
+				self.terminalViewModel.multiLineRows(self.terminalViewModel.multiLineRows()+1);  // adding line with Shift
+				return true;
 			}
 			if (event.keyCode === 8 && (self.terminalViewModel.multiLineRows() !== self.terminalViewModel.multiLineInputRowCount())){
 				self.terminalViewModel.multiLineRows(self.terminalViewModel.multiLineInputRowCount());
