@@ -1,6 +1,6 @@
 # Multi Line Terminal
 
-This plugin adds the ability to switch the terminal input into a multi-line text area on double-click of the input or by clicking the shift and enter key at the same time while in single line mode. While in multi-line mode you can use the Send button or press the shift and enter keys at the same time to send the gcode commands to your printer. Use shift+up and shift+down to navigate through command history while in multi-line mode. 
+This plugin adds the ability to send multiple Gcode commands at once. Switch the terminal input into a multi-line text area on double-click of the input or add new lines by clicking the shift and enter key at the same time. Use shift+up and shift+down to navigate through command history while in multi-line mode. 
 
 ![screenshot](screenshot.png)
 
