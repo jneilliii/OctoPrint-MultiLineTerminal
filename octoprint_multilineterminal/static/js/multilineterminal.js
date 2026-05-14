@@ -46,12 +46,23 @@ $(function() {
 					var fullCode = commandMatch[1].toUpperCase(); // full code incl. sub code
 					var mainCode = commandMatch[2].toUpperCase(); // main code only without sub code
 
-					if (self.terminalViewModel.blacklist.indexOf(mainCode) < 0 && self.terminalViewModel.blacklist.indexOf(fullCode) < 0) {
-						// full or main code not on blacklist -> upper case the whole command
-						command_line = command_line.toUpperCase();
+					if (self.terminalViewModel.blacklist) {
+						if (self.terminalViewModel.blacklist.indexOf(mainCode) < 0 && self.terminalViewModel.blacklist.indexOf(fullCode) < 0) {
+							// full or main code not on blacklist -> upper case the whole command
+							command_line = command_line.toUpperCase();
+						} else {
+							// full or main code on blacklist -> only upper case that and leave parameters as is
+							command_line = fullCode + (commandMatch[4] !== undefined ? commandMatch[4] : "");
+						}
+					// OctoPrint 2.0.0+
 					} else {
-						// full or main code on blacklist -> only upper case that and leave parameters as is
-						command_line = fullCode + (commandMatch[4] !== undefined ? commandMatch[4] : "");
+						if (self.terminalViewModel.blocklist.indexOf(mainCode) < 0 && self.terminalViewModel.blocklist.indexOf(fullCode) < 0) {
+							// full or main code not on blacklist -> upper case the whole command
+							command_line = command_line.toUpperCase();
+						} else {
+							// full or main code on blocklist -> only upper case that and leave parameters as is
+							command_line = fullCode + (commandMatch[4] !== undefined ? commandMatch[4] : "");
+						}
 					}
 				}
 				commandsToSend.push(command_line);

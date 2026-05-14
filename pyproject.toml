@@ -1,0 +1,42 @@
+[build-system]
+requires = [
+    "setuptools>=68",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Multi-Line-Terminal"
+version = "0.1.6"
+description = "Makes the terminal input a multi-line text area"
+authors = [
+    { name = "jneilliii", email = "jneilliii+github@gmail.com" },
+]
+requires-python = ">=3.7,<4"
+dependencies = []
+dynamic = [
+    "license",
+]
+
+[project.entry-points."octoprint.plugin"]
+multilineterminal = "octoprint_multilineterminal"
+
+[project.urls]
+Homepage = "https://github.com/jneilliii/OctoPrint-MultiLineTerminal"
+
+[project.optional-dependencies]
+develop = [
+    "go-task-bin",
+]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = [
+    "octoprint_multilineterminal",
+    "octoprint_multilineterminal.*",
+]
